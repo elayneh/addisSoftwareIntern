@@ -3,6 +3,7 @@ frontend/node_modules/
 frontend/build/
 frontend/.npm/
 frontend/.yarn/
+frontend/.env
 
 api/node_modules/
 api/public/images/
@@ -10,3 +11,4 @@ api/public/uploads/
 api/build/
 api/.npm/
 api/.yarn/
+api/.env
