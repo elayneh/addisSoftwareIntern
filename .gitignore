@@ -5,7 +5,8 @@ frontend/.npm/
 frontend/.yarn/
 
 api/node_modules/
-
+api/public/images/
+api/public/uploads/
 api/build/
 api/.npm/
 api/.yarn/
