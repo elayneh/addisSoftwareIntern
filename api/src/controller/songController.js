@@ -4,7 +4,7 @@ import multer from "multer";
 import APIError from "../Utils/errors/APIErrorHandler.js";
 
 const storage = multer.diskStorage({
-  destination: "./../../public/uploads",
+  destination: "./public/uploads/",
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -29,6 +29,9 @@ export const getAllSongs = async (req, res, next) => {
 };
 
 export const addSong = async (req, res, next) => {
+  console.log("File: ", storage);
+  console.log("Uploads: ", uploads);
+
   try {
     const songList = await Song.find({});
     if (!req.file)

@@ -12,13 +12,11 @@ import routes from "../routes/songRoutes.js";
 
 const app = express();
 
-// Uncaught exception handler
 process.on("uncaughtException", (error) => {
   console.error("Uncaught Exception: ", error);
   process.exit(1);
 });
 
-// Unhandled promise rejection handler
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection:", error);
   process.exit(1);
@@ -27,7 +25,6 @@ process.on("unhandledRejection", (error) => {
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
 app.use(cors({ origin: "*" }));
-app.set("views", path.join(process.cwd(), "views"));
 app.use(express.static(path.join(process.cwd(), "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
