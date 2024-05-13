@@ -3,46 +3,33 @@
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { Typography } from "@mui/material";
+import { DashboardPropType } from "./types";
 
-export const Dashboard = () => {
+interface AlbumData {
+  label: string;
+  data: number[];
+}
+const Dashboard = (props: DashboardPropType) => {
   const totalCtx = useRef<any>(null);
+
   const genreCtx = useRef<any>(null);
-  const artistCtx = useRef<any>(null);
   const albumCtx = useRef<any>(null);
   const artistSongAlbumCtx = useRef<any>(null);
+  const artistSongAlbum2Ctx = useRef<any>(null);
 
-  const data = [100, 23, 4, 12, 20, 6, 11];
-  const totalSongs = data[0];
-  const totalArtists = data[1];
-  const totalAlbums = data[2];
-  const totalGenres = data[3];
-  const genreCounts = [12, 2, 34, 56, 34, 100, 23, 4, 12, 20];
-  const albumCounts = [4, 3, 5, 7, 5, 10, 11, 23, 4, 12, 7, 5, 7, 10, 11];
+  const totalSongs = props.dashboardData.totalCounts.tSongs;
+  const totalArtists = props.dashboardData.totalCounts.tArtists;
+  const totalAlbums = props.dashboardData.totalCounts.tAlbums;
+  const totalGenres = props.dashboardData.totalCounts.tGenres;
+  const genreCounts = props.dashboardData.numberOfSongsPerGenre;
+  const numberOfSongsPerAlbum = props.dashboardData.numberOfSongsPerAlbumData;
 
-  const artistDataArray = [
-    { artist: { artistName: "artistN", numberOfSongs: 11, numberOfAlbums: 1 } },
-    { artist: { artistName: "artistN", numberOfSongs: 15, numberOfAlbums: 2 } },
-    { artist: { artistName: "artistN", numberOfSongs: 16, numberOfAlbums: 3 } },
-    {
-      artist: { artistName: "artistN", numberOfSongs: 113, numberOfAlbums: 10 },
-    },
-    { artist: { artistName: "artistN", numberOfSongs: 41, numberOfAlbums: 5 } },
-    { artist: { artistName: "artistN", numberOfSongs: 21, numberOfAlbums: 3 } },
-    { artist: { artistName: "artistN", numberOfSongs: 31, numberOfAlbums: 4 } },
-    { artist: { artistName: "artistN", numberOfSongs: 16, numberOfAlbums: 2 } },
-    {
-      artist: { artistName: "artistN", numberOfSongs: 100, numberOfAlbums: 15 },
-    },
-    { artist: { artistName: "artistN", numberOfSongs: 96, numberOfAlbums: 8 } },
-  ];
+  const artistDataArray = Object.entries(
+    props.dashboardData.numberOfSongsAndAlbumsPerArtistData
+  ).map(([artistName, data]) => ({ artistName, ...data }));
 
   useEffect(() => {
-    if (
-      totalCtx.current &&
-      genreCtx.current &&
-      artistCtx.current &&
-      albumCtx.current
-    ) {
+    if (totalCtx.current && genreCtx.current && albumCtx.current) {
       const totalData = {
         labels: ["Songs", "Artists", "Albums", "Genres"],
         datasets: [
@@ -67,22 +54,6 @@ export const Dashboard = () => {
         ],
       };
 
-      const totalOptions = {
-        responsive: true,
-        maintainAspectRation: false,
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-                fontSize: 10,
-              },
-            },
-          ],
-          xAxes: [{ ticks: { fontSize: 10 } }],
-        },
-      };
-
       if (totalCtx.current.chart) {
         totalCtx.current.chart.destroy();
       }
@@ -90,30 +61,21 @@ export const Dashboard = () => {
       totalCtx.current.chart = new Chart(totalCtx.current, {
         type: "bar",
         data: totalData,
-        options: totalOptions,
       });
     }
   }, []);
 
   useEffect(() => {
-    if (genreCtx.current) {
+    if (genreCtx.current && genreCounts) {
+      const genreLabels = genreCounts.map((genre) => genre.genre);
+      const genreDataValues = genreCounts.map((genre) => genre.count);
+
       const genreData = {
-        labels: [
-          "Genre 1",
-          "Genre 2",
-          "Genre 3",
-          "Genre 4",
-          "Genre 5",
-          "Genre 6",
-          "Genre 7",
-          "Genre 8",
-          "Genre 9",
-          "Genre 10",
-        ],
+        labels: genreLabels,
         datasets: [
           {
-            label: "Songs per Genre",
-            data: genreCounts,
+            label: "Total no of songs",
+            data: genreDataValues,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(115, 99, 32, 0.2)",
@@ -138,18 +100,6 @@ export const Dashboard = () => {
         ],
       };
 
-      const genreOptions = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      };
-
       if (genreCtx.current.chart) {
         genreCtx.current.chart.destroy();
       }
@@ -157,94 +107,30 @@ export const Dashboard = () => {
       genreCtx.current.chart = new Chart(genreCtx.current, {
         type: "pie",
         data: genreData,
-        options: genreOptions,
-      });
-    }
-  }, [genreCounts]);
-
-  // Songs in each album
-  useEffect(() => {
-    if (albumCtx.current) {
-      const albumData = {
-        labels: [
-          "Album 1",
-          "Album 2",
-          "Album 3",
-          "Album 4",
-          "Album 5",
-          "Album 6",
-          "Album 7",
-          "Album 8",
-          "Album 9",
-          "Album 10",
-          "Album 11",
-          "Album 12",
-          "Album 13",
-          "Album 14",
-          "Album 15",
-        ],
-        datasets: [
-          {
-            label: "Songs per Album",
-            data: albumCounts,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-            ],
-            borderWidth: 1,
-            radius: "80%",
-          },
-        ],
-      };
-
-      const albumOptions = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      };
-
-      if (albumCtx.current.chart) {
-        albumCtx.current.chart.destroy();
-      }
-
-      albumCtx.current.chart = new Chart(albumCtx.current, {
-        type: "pie",
-        data: albumData,
-        options: albumOptions,
       });
     }
   }, [genreCounts]);
 
   // # of songs and albums each artists have
   useEffect(() => {
-    if (artistSongAlbumCtx.current) {
+    if (artistSongAlbumCtx.current && artistDataArray.length > 0) {
+      const artistLabels = artistDataArray.map((artist) => artist.artistName);
+      const artistSongs = artistDataArray.map((artist) => artist.totalSongs);
+      const artistAlbums = artistDataArray.map((artist) => artist.totalAlbums);
+
       const artistData = {
-        labels: artistDataArray.map((row) => row.artist.artistName),
+        labels: artistLabels,
         datasets: [
           {
             label: "# of songs",
-            data: artistDataArray.map((row) => row.artist.numberOfSongs),
+            data: artistSongs,
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 1,
           },
           {
             label: "# of albums",
-            data: artistDataArray.map((row) => row.artist.numberOfAlbums),
+            data: artistAlbums,
             backgroundColor: "rgba(54, 162, 235, 0.2)",
             borderColor: "rgba(54, 162, 235, 1)",
             borderWidth: 1,
@@ -252,17 +138,6 @@ export const Dashboard = () => {
         ],
       };
 
-      const artistOptions = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      };
 
       if (artistSongAlbumCtx.current.chart) {
         artistSongAlbumCtx.current.chart.destroy();
@@ -271,22 +146,85 @@ export const Dashboard = () => {
       artistSongAlbumCtx.current.chart = new Chart(artistSongAlbumCtx.current, {
         type: "bar",
         data: artistData,
-        options: artistOptions,
       });
     }
+  }, [artistDataArray]);
+
+  // Total number of songs per album
+
+  useEffect(() => {
+    if (artistSongAlbum2Ctx.current) {
+      const songsPerAlbumData: AlbumData[] = Object.entries(
+        numberOfSongsPerAlbum
+      ).map(([album, { totalSongs }]) => ({
+        label: album,
+        data: [totalSongs],
+      }));
+
+      if (artistSongAlbum2Ctx.current.chart) {
+        artistSongAlbum2Ctx.current.chart.destroy();
+      }
+
+      artistSongAlbum2Ctx.current.chart = new Chart(
+        artistSongAlbum2Ctx.current,
+        {
+          type: "bar",
+          data: {
+            labels: songsPerAlbumData.map((album) => album.label),
+            datasets: [
+              {
+                label: "Number of Songs",
+                data: songsPerAlbumData.map((album) => album.data[0]),
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Number of Songs",
+                },
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: "Album",
+                },
+              },
+            },
+          },
+        }
+      );
+    }
+
+    return () => {
+      if (artistSongAlbum2Ctx.current?.chart) {
+        artistSongAlbum2Ctx.current.chart.destroy();
+      }
+    };
   }, []);
+
+  ////
   return (
     <div>
       <Typography>Total Counts</Typography>
       <canvas ref={totalCtx} />
       <Typography>Number of songs per genres analysis</Typography>
       <canvas ref={genreCtx} />
-      <Typography>Number of songs per albums analysis</Typography>
       <canvas ref={albumCtx} />
       <Typography>
         Analysis for number of songs and albums an artist have.
       </Typography>
       <canvas ref={artistSongAlbumCtx} />
+      <Typography>Number of songs per albums analysis</Typography>
+      <canvas ref={artistSongAlbum2Ctx} />;
     </div>
   );
 };
+
+export default Dashboard;

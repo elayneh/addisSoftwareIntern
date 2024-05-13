@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
-import app from "./config/express.js";
-import { connectDb } from "./config/mogoose.js";
+import app from "./src/config/express.js";
+import { connectDb } from "./src/config/mogoose.js";
 
 dotenv.config();
 const start = async () => {

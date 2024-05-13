@@ -4,4 +4,5 @@ export const apiRoute = {
   deleteSong: "/delete",
   updateSong: "/update",
   getSong: "/getAllSongs",
+  getDashboardData: "/getDashboardData",
 };

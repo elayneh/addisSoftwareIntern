@@ -7,13 +7,12 @@ import {
 } from "../../../../redux/utils/redux-injectors";
 import { initialState } from "../constants";
 import { deleteSongSaga } from "./saga";
-import { deleteSongType } from "./types";
 
 const slice = createSlice({
   name: "deleteSongPageSliceName",
   initialState,
   reducers: {
-    deleteSongRequest: (state, action: PayloadAction<deleteSongType>) => {
+    deleteSongRequest: (state, action: PayloadAction<string>) => {
       state.isLoading = true;
       state.deleteSongId = action.payload;
       state.errorMessage = "";

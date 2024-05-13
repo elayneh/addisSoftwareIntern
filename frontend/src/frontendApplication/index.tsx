@@ -1,11 +1,21 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import HomeComponent from "./Components/Home";
-// import HomeComponent from "./Components/Home";
+import Index from "./Components/Home/home";
+
 const Home = () => {
+  const { pathname } = useLocation();
+  const indexPage = pathname === "/";
+
   return (
     <React.StrictMode>
-      <HomeComponent>{<Outlet />}</HomeComponent>
+      {indexPage ? (
+        <Index />
+      ) : (
+        <HomeComponent>
+          <Outlet />
+        </HomeComponent>
+      )}
     </React.StrictMode>
   );
 };

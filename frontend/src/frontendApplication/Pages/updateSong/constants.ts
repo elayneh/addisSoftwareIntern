@@ -1,4 +1,4 @@
-import { UpdateSongComponentPageTypes } from "./slice/types";
+import { UpdateSongComponentPageTypes } from "./types";
 
 export const initialState: UpdateSongComponentPageTypes = {
   isLoading: false,
@@ -8,5 +8,6 @@ export const initialState: UpdateSongComponentPageTypes = {
     artist: "",
     genre: "",
     title: "",
+    songId: ""
   }
 };

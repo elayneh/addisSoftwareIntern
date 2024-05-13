@@ -1,14 +1,14 @@
-import { Dashboard } from "../../frontendApplication/Components/Dashboard";
 import NotFound from "../../frontendApplication/Components/notFound";
 import { AddSongPageLoader } from "../../frontendApplication/Pages/addSong/Loadable";
 import { SongPageLoader } from "../../frontendApplication/Pages/songComponentPage/loadable";
 import { UpdateSongPageLoader } from "../../frontendApplication/Pages/updateSong/Loadable";
 import { DeleteSongPageLoader } from "../../frontendApplication/Pages/deleteSong/Loadable";
+import { DashboardPageLoader } from "../../frontendApplication/Pages/DashboardPage/loadable";
 
 export const allRoutes = [
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <DashboardPageLoader />,
     errorElement: <NotFound />,
   },
   {

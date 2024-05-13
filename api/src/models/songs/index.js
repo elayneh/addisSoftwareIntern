@@ -5,5 +5,4 @@ import { modelNames } from "../../Utils/Constants/models.js";
 
 // SongModel.static(staticFunctions);
 
-const Song = mongoose.model(modelNames.songs, SongModel);
-export default Song;
+export const Song = mongoose.model(modelNames.songs, SongModel);

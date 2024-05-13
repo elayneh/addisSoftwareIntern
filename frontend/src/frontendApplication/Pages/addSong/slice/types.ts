@@ -9,9 +9,9 @@ export type SongComponentPageTypes = {
 };
 export type songType = {
   songId: string;
-  album: string;
-  artist: string;
-  genre: string;
   title: string;
-  file?: File | null;
+  album: string;
+  genre: string;
+  artist: string;
+  file: File | null;
 };

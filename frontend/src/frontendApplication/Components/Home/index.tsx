@@ -28,13 +28,11 @@ export const HomeComponent = (props: HomeLayoutComponentProps) => {
         />
         <ContainerStyle
           ml={showSideBar ? "220px" : "70px"}
-          p={"0"}
           width={showSideBar ? "85vw" : "97vw"}
           mt={62}
           position={"relative"}
         >
-          {" "}
-          {props.children}{" "}
+          {props.children}
         </ContainerStyle>
       </Flex>
     </Flex>

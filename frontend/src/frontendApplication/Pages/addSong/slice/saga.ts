@@ -1,10 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { songType } from "../../../Components/AddSongComponent/slice/type";
 import { makeCall } from "../../../API";
 import { apiRoute } from "../../../../utils/routes/constants";
 import { AxiosError } from "axios";
 import { addSongActions as actions } from ".";
 import { put, takeLatest } from "redux-saga/effects";
+import { songType } from "../../addSong/slice/types";
 
 function* handleAddSong(action: PayloadAction<songType>) {
   try {

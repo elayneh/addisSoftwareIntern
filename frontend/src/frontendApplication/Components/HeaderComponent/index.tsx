@@ -233,7 +233,7 @@ const HeaderComponent = ({ setShowSideBar, showSideBar }: SideBarProps) => {
           >
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Confirm to delete?
+                Confirm to logout?
               </DialogContentText>
             </DialogContent>
             <DialogActions

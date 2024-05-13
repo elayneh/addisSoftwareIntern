@@ -3,18 +3,12 @@ import { initialState } from "../constants";
 import { RootState } from "../../../../redux/RootState";
 
 const selectSlice = (state: RootState) =>
-  state?.songPageSliceName || initialState;
+  state?.dashboardPageSliceName || initialState;
 
-export const selectError = createSelector(
+export const selectDashboardData = createSelector(
   [selectSlice],
-  (state) => state.errorMessage
+  (state) => state?.dashboardData
 );
-export const selectIsLoading = createSelector(
-  [selectSlice],
-  (state) => state.isLoading
-);
-
-export const selectSong = createSelector([selectSlice], (state) => state.song);
 
 export const selectIsFailed = createSelector(
   [selectSlice],

@@ -5,8 +5,8 @@ export interface submitSongType {
 export type DeleteSongComponentPageTypes = {
   isLoading: boolean;
   errorMessage: string;
-  songToBeUpdated: deleteSongType;
+  deleteSongId: string;
 };
-export type deleteSongType = {
-  songId: string;
-};
+// export type deleteSongType = {
+//   songId: string;
+// };

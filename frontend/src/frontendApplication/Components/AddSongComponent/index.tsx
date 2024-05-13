@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSelector } from "react-redux";
-import { selectError, selectSong } from "./slice/selector";
 import { AddSongTypeProps } from "./types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { selectError, selectSong } from "../../Pages/addSong/slice/selector";
 
 export const AudioUploader = (props: AddSongTypeProps) => {
   const song = useSelector(selectSong);

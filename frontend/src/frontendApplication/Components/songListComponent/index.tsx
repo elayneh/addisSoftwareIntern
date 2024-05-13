@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
 import { Flex } from "../../basicStyles/Flex";
 import { Card, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,9 +16,15 @@ export const SongComponent = (props: SongComponentProps) => {
   const handleDeleteButtonClick = (songId: string) => {
     navigate(`/delete/${songId}`);
   };
-  const hadleEditButtonClick = (songId: string) => {
+
+  const handleEditButtonClick = (songId: string) => {
     navigate(`/update/${songId}`);
   };
+
+  const handlePlayButtonClick = (songId: string) => {
+    console.log("Playing the song...: ", songId);
+  };
+
   return (
     <Card
       sx={{
@@ -55,7 +59,7 @@ export const SongComponent = (props: SongComponentProps) => {
             {props.song &&
               props.song.map((song, index) => (
                 <tr key={index}>
-                  <button>
+                  <button onClick={() => handlePlayButtonClick(song.songId)}>
                     <td>
                       <PlayArrowIcon />
                     </td>
@@ -77,7 +81,9 @@ export const SongComponent = (props: SongComponentProps) => {
                         <DeleteIcon />
                       </button>
                       <span style={{ margin: "0 5px" }}></span>{" "}
-                      <button onClick={() => hadleEditButtonClick(song.songId)}>
+                      <button
+                        onClick={() => handleEditButtonClick(song.songId)}
+                      >
                         <EditIcon />
                       </button>
                     </Flex>

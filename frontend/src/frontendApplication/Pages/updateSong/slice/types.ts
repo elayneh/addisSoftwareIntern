@@ -12,4 +12,5 @@ export type songType = {
   artist: string;
   genre: string;
   title: string;
+  songId: string;
 };
