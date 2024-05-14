@@ -27,6 +27,37 @@ export const getAllSongs = async (req, res, next) => {
   }
 };
 
+export const filterSongByGenre = async (req, res, next) => {
+  try {
+    const { genre } = req.query;
+
+    if (!genre) {
+      res.json({ error: "No song found" });
+    }
+
+    const genreRegex = new RegExp(genre, "i");
+
+    const filteredSongs = await Song.find({ genre: { $regex: genreRegex } });
+    const rankedSongs = filteredSongs.map((song) => {
+      const matchingCharacters = [...song.genre].filter((char) =>
+        genre.includes(char)
+      ).length;
+      return { song, score: matchingCharacters };
+    });
+    rankedSongs.sort((a, b) => b.score - a.score);
+    const sortedSongs = rankedSongs.map((item) => item.song);
+
+    res.json({ sortedSongs });
+  } catch (error) {
+    next(
+      new APIError(
+        error.message || "An error occurred while filtering songs by genre",
+        httpStatus.INTERNAL_SERVER_ERROR
+      )
+    );
+  }
+};
+
 export const addSong = async (req, res, next) => {
   try {
     const songList = await Song.find({});
