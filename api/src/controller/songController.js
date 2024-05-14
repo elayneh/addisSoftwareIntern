@@ -18,7 +18,6 @@ export const getAllSongs = async (req, res, next) => {
     const songs = await Song.find({}).sort({ updatedAt: -1 });
     res.status(200).json({ message: "song sent successful", songs });
   } catch (error) {
-    console.log(error);
     next(
       new APIError(
         error.message || "An error occurred while process to get all songs",
@@ -45,7 +44,6 @@ export const addSong = async (req, res, next) => {
     });
     res.json(newSong);
   } catch (error) {
-    console.log(error);
     next(
       new APIError(
         error.message || "An error occurred while process to add song",
@@ -72,7 +70,6 @@ export const updateSong = async (req, res, next) => {
       .status(200)
       .json({ message: "Song updated successfully", updatedSong });
   } catch (error) {
-    console.log(error);
     next(
       new APIError(
         error.message || "An error occurred while process to update the song",
