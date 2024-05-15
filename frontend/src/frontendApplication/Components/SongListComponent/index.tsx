@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Flex } from "../../basicStyles/Flex";
 import { Card, Typography, CircularProgress } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,10 +13,8 @@ export const SongComponent = (props: SongComponentProps) => {
   const [songs, setSongs] = useState<SongComponentProps["song"]>([]);
 
   useEffect(() => {
-    // Simulate fetching songs
     const fetchSongs = async () => {
       setLoading(true);
-      // Simulating a network request
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setSongs(props.song);
       setLoading(false);

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import NotFound from "../../frontendApplication/Components/notFound";
+import NotFound from "../../frontendApplication/Components/NotFound";
 import { allRoutes } from "./routes";
 import Home from "../../frontendApplication";
 

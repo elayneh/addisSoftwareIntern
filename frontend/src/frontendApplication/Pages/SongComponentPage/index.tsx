@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useSongPageSlice } from "./slice";
 import { selectSong } from "./slice/selector";
-import { SongComponent } from "../../Components/songListComponent";
+import { SongComponent } from "../../Components/SongListComponent";
 
 export const SongComponentPage = () => {
   const { actions } = useSongPageSlice();

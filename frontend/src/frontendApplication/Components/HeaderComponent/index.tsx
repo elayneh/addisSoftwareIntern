@@ -23,12 +23,14 @@ import { SetStateAction, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import "./style.css";
 import { theme } from "../../Styles/theme";
+import { useNavigate } from "react-router-dom";
 const HeaderComponent = ({ setShowSideBar, showSideBar }: SideBarProps) => {
   const [anchor, setAnchor] = useState(false);
   const name = localStorage.getItem("name");
   const email = localStorage.getItem("email");
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   const handleClickClear = () => {
     setSearchValue("");
@@ -42,8 +44,8 @@ const HeaderComponent = ({ setShowSideBar, showSideBar }: SideBarProps) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickShowSearch = () => {
-    console.log("search button is clicked");
+  const handleClickShowSearch = (filterQuery: string) => {
+    navigate(`/filter/${filterQuery}`);
     setSearchValue("");
   };
   const toggleSideBarShow = (showSideBar: boolean) => {
@@ -124,7 +126,7 @@ const HeaderComponent = ({ setShowSideBar, showSideBar }: SideBarProps) => {
           }}
         >
           <IconButton
-            onClick={() => handleClickShowSearch()}
+            onClick={() => handleClickShowSearch(searchValue)}
             className="search-icon"
           >
             {<CiSearch />}

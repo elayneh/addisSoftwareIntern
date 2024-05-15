@@ -2,35 +2,35 @@
 
 import { initialState } from "../constants";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { songType } from "./types";
 import {
   useInjectReducer,
   useInjectSaga,
 } from "../../../../redux/utils/redux-injectors";
 import { createSlice } from "../../../../redux/utils/toolkit";
-import { getDashboardPageSaga } from "./saga";
-import { DashboardPropType } from "./types";
+import { getSongPageSaga } from "./saga";
 
 const slice = createSlice({
-  name: "dashboardPageSliceName",
+  name: "songPageSliceName",
   initialState,
   reducers: {
-    getDashboardRequest(state) {
+    getSong(state) {
       state.isLoading = true;
       state.errorMessage = "";
     },
-    getDashboardSuccess(state, action: PayloadAction<DashboardPropType>) {
-      state.dashboardData = action.payload;
+    getSongSuccess(state, action: PayloadAction<songType[]>) {
+      state.song = action.payload;
       state.isLoading = false;
     },
-    getDashboardFailed(state, action: PayloadAction<string>) {
+    getSongFailed(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
     },
   },
 });
 
-export const { actions: dashboardPageActions } = slice;
-export const useDashboardPageSlice = () => {
+export const { actions: songPageActions } = slice;
+export const useSongPageSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: getDashboardPageSaga });
+  useInjectSaga({ key: slice.name, saga: getSongPageSaga });
   return { actions: slice.actions };
 };

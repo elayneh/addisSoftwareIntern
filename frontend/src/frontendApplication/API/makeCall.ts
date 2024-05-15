@@ -9,7 +9,6 @@ const makeCall = async (config: IAPICallConfig) => {
   try {
     const fullURL = `${API_ROUTE}${config.route}`;
     const header = (config.headers as HeaderObj) || {};
-
     const response: AxiosResponse = await axios({
       method: config.method,
       params: config.query,

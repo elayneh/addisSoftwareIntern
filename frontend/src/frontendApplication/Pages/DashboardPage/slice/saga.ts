@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { put, takeLatest } from "redux-saga/effects";
-import { loginPageActions as actions } from ".";
+import { dashboardPageActions as actions } from ".";
 import { AxiosError } from "axios";
 import { makeCall } from "../../../API";
 import { apiRoute } from "../../../../utils/routes/constants";
@@ -12,8 +12,6 @@ function* handleGetDashboard() {
       route: `${apiRoute.api}${apiRoute.getDashboardData}`,
       method: "GET",
     });
-
-    console.log("Response: ", response);
 
     const { dashboardData }: { dashboardData: DashboardPropType } = response;
     const {

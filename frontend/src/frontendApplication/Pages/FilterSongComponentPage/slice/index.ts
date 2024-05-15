@@ -2,35 +2,34 @@
 
 import { initialState } from "../constants";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { songType } from "./types";
+import { filteredSongType } from "./types";
 import {
   useInjectReducer,
   useInjectSaga,
 } from "../../../../redux/utils/redux-injectors";
 import { createSlice } from "../../../../redux/utils/toolkit";
-import { getSongPageSaga } from "./saga";
+import { getFilteredSongPageSaga } from "./saga";
 
 const slice = createSlice({
-  name: "songPageSliceName",
+  name: "filteredSongPageSliceName",
   initialState,
   reducers: {
-    getSong(state) {
+    getFilteredSong(state) {
       state.isLoading = true;
       state.errorMessage = "";
     },
-    getSongSuccess(state, action: PayloadAction<songType[]>) {
-      state.song = action.payload;
+    getFilteredSongSuccess(state, action: PayloadAction<filteredSongType[]>) {
+      state.filteredSong = action.payload;
       state.isLoading = false;
     },
-    getSongFailed(state, action: PayloadAction<string>) {
+    getFilteredSongFailed(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
     },
   },
 });
-
-export const { actions: loginPageActions } = slice;
-export const useSongPageSlice = () => {
+export const { actions: filteredSongPageActions } = slice;
+export const useFilteredSongPageSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: getSongPageSaga });
+  useInjectSaga({ key: slice.name, saga: getFilteredSongPageSaga });
   return { actions: slice.actions };
 };

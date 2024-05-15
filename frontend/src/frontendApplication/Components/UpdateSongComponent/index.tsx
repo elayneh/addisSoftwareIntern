@@ -4,10 +4,10 @@ import Modal from "../../../utils/util/modal";
 import { Flex } from "../../basicStyles/Flex";
 import { submitTypes, UpdateSongTypeProps } from "./types";
 import { useSelector } from "react-redux";
-import { selectError, selectSong } from "./slice/selector";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
+import { selectError, selectSong } from "../../Pages/UpdateSong/slice/selector";
 
 export const UpdateSong = (props: UpdateSongTypeProps) => {
   const navigate = useNavigate();
@@ -19,12 +19,13 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
     navigate("/songlist");
   };
   const errorMessage = useSelector(selectError);
-  const song = useSelector(selectSong);
+  const songToBeUpdated = useSelector(selectSong);
+  console.log("Song to be updated: ", songToBeUpdated);
   const initialValues = {
-    album: song[0].album,
-    artist: song[0].artist,
-    genre: song[0].genre,
-    title: song[0].title,
+    album: songToBeUpdated[0].album,
+    artist: songToBeUpdated[0].artist,
+    genre: songToBeUpdated[0].genre,
+    title: songToBeUpdated[0].title,
     songId: String(songId),
   };
   const validationSchema = Yup.object().shape({
@@ -37,6 +38,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
   const handleSubmit = (values: submitTypes, { setSubmitting }: any) => {
     props.handleSubmit(values);
     setSubmitting(false);
+    navigate("/songlist");
   };
 
   return (
@@ -52,27 +54,79 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              overflow: "hidden",
             }}
           >
             <div>
-              {errorMessage && <div>{errorMessage}</div>}
+              {errorMessage && <div color="red">{errorMessage}</div>}
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
-                  <Form>
-                    <Field type="text" name="title" placeholder="Title" />
-                    <Field type="text" name="album" placeholder="Album" />
-                    <Field type="text" name="artist" placeholder="Artist" />
-                    <Field type="text" name="genre" placeholder="Genre" />
-                    <Field
-                      type="text"
-                      name="songId"
-                      placeholder="songId"
-                      disabled
-                    />
+                  <Form
+                    style={{
+                      width: "50vw",
+                      backgroundColor: "#CCCCFF",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Flex
+                      flexDirection={"column"}
+                      style={{
+                        gap: "10px",
+                      }}
+                    >
+                      <Flex>
+                        <Field
+                          type="text"
+                          name="title"
+                          placeholder="Title"
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </Flex>
+                      <Flex>
+                        <Field
+                          type="text"
+                          name="album"
+                          placeholder="Album"
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </Flex>
+                      <Flex>
+                        <Field
+                          type="text"
+                          name="artist"
+                          placeholder="Artist"
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </Flex>
+                      <Flex>
+                        <Field
+                          type="text"
+                          name="genre"
+                          placeholder="Genre"
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </Flex>
+                    </Flex>
                     <div
                       style={{
                         display: "flex",

@@ -1,9 +1,10 @@
-import NotFound from "../../frontendApplication/Components/notFound";
-import { AddSongPageLoader } from "../../frontendApplication/Pages/addSong/Loadable";
-import { SongPageLoader } from "../../frontendApplication/Pages/songComponentPage/loadable";
-import { UpdateSongPageLoader } from "../../frontendApplication/Pages/updateSong/Loadable";
-import { DeleteSongPageLoader } from "../../frontendApplication/Pages/deleteSong/Loadable";
+import NotFound from "../../frontendApplication/Components/NotFound";
+import { SongPageLoader } from "../../frontendApplication/Pages/SongComponentPage/loadable";
+import { UpdateSongPageLoader } from "../../frontendApplication/Pages/UpdateSong/Loadable";
+import { DeleteSongPageLoader } from "../../frontendApplication/Pages/DeleteSong/Loadable";
 import { DashboardPageLoader } from "../../frontendApplication/Pages/DashboardPage/loadable";
+import { AddSongPageLoader } from "../../frontendApplication/Pages/AddSong/Loadable";
+import { FilteredSongPageLoader } from "../../frontendApplication/Pages/FilterSongComponentPage/loadable";
 
 export const allRoutes = [
   {
@@ -24,6 +25,11 @@ export const allRoutes = [
   {
     path: "/songlist",
     element: <SongPageLoader />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/filter/:filterQuery",
+    element: <FilteredSongPageLoader />,
     errorElement: <NotFound />,
   },
   {

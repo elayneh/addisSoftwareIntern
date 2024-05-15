@@ -4,7 +4,7 @@ import { apiRoute } from "../../../../utils/routes/constants";
 import { AxiosError } from "axios";
 import { addSongActions as actions } from ".";
 import { put, takeLatest } from "redux-saga/effects";
-import { songType } from "../../addSong/slice/types";
+import { songType } from "../../AddSong/slice/types";
 
 function* handleAddSong(action: PayloadAction<songType>) {
   try {

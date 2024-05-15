@@ -1,10 +1,11 @@
 import {
   SongComponentPageTypes,
   songType,
-} from "../frontendApplication/Pages/addSong/slice/types";
+} from "../frontendApplication/Pages/AddSong/slice/types";
 import { DashboardComponentPageTypes } from "../frontendApplication/Pages/DashboardPage/slice/types";
-import { DeleteSongComponentPageTypes } from "../frontendApplication/Pages/deleteSong/types";
-import { UpdateSongComponentPageTypes } from "../frontendApplication/Pages/updateSong/types";
+import { DeleteSongComponentPageTypes } from "../frontendApplication/Pages/DeleteSong/types";
+import { FilteredSongComponentPageTypes } from "../frontendApplication/Pages/FilterSongComponentPage/slice/types";
+import { UpdateSongComponentPageTypes } from "../frontendApplication/Pages/UpdateSong/types";
 
 export interface RootState {
   songPageSliceName?: SongComponentPageTypes;
@@ -12,4 +13,5 @@ export interface RootState {
   updateSongPageSliceName?: UpdateSongComponentPageTypes;
   deleteSongPageSliceName?: DeleteSongComponentPageTypes;
   dashboardPageSliceName?: DashboardComponentPageTypes;
+  filteredSongPageSliceName?: FilteredSongComponentPageTypes;
 }

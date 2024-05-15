@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { selectError, selectSong } from "../../Pages/addSong/slice/selector";
+import { selectError, selectSong } from "../../Pages/AddSong/slice/selector";
 
 export const AudioUploader = (props: AddSongTypeProps) => {
   const song = useSelector(selectSong);
