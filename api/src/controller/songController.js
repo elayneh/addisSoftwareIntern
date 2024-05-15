@@ -2,6 +2,12 @@ import { Song } from "./../models/songs/index.js";
 import multer from "multer";
 import APIError from "../Utils/errors/APIErrorHandler.js";
 import httpStatus from "http-status";
+import { randomBytes } from "crypto";
+
+const generateRandomNumberString = (length) => {
+  const randomString = randomBytes(length).toString("hex");
+  return randomString.replace(/\D/g, "").slice(0, length);
+};
 
 const storage = multer.diskStorage({
   destination: "./public/uploads/",
@@ -60,13 +66,22 @@ export const filterSongByGenre = async (req, res, next) => {
 
 export const addSong = async (req, res, next) => {
   try {
+    let songId;
+    let isUnique = false;
     const songList = await Song.find({});
     if (!req.file)
       return res.status(400).json({ error: "Song file is required" });
     const { title, album, artist, genre } = req.body;
     const song = req.file.filename;
+    while (!isUnique) {
+      songId = generateRandomNumberString(10); // Adjust the length as needed
+      const existingSong = await Song.findOne({ songId });
+      if (!existingSong) {
+        isUnique = true;
+      }
+    }
     const newSong = await Song.create({
-      songId: String(songList.length + 1),
+      songId,
       song,
       title: title,
       artist: artist,
@@ -118,7 +133,7 @@ export const deleteSong = async (req, res, next) => {
     });
     res.json({ deletedSong });
   } catch (error) {
-    cosole.log(error);
+    console.log(error);
     next(
       new APIError(
         error.message || "An error occurred while process to update the song",
