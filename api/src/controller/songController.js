@@ -64,40 +64,47 @@ export const filterSongByGenre = async (req, res, next) => {
   }
 };
 
+
+
 export const addSong = async (req, res, next) => {
   try {
-    let songId;
-    let isUnique = false;
-    const songList = await Song.find({});
     if (!req.file)
       return res.status(400).json({ error: "Song file is required" });
+
     const { title, album, artist, genre } = req.body;
     const song = req.file.filename;
+
+    let songId;
+    let isUnique = false;
+
     while (!isUnique) {
-      songId = generateRandomNumberString(10); // Adjust the length as needed
+      songId = generateRandomNumberString(10);
       const existingSong = await Song.findOne({ songId });
       if (!existingSong) {
         isUnique = true;
       }
     }
+
     const newSong = await Song.create({
       songId,
       song,
-      title: title,
-      artist: artist,
-      album: album,
-      genre: genre,
+      title,
+      artist,
+      album,
+      genre,
     });
+
     res.json(newSong);
   } catch (error) {
     next(
       new APIError(
-        error.message || "An error occurred while process to add song",
+        error.message || "An error occurred while processing to add song",
         httpStatus.INTERNAL_SERVER_ERROR
       )
     );
   }
 };
+
 
 export const updateSong = async (req, res, next) => {
   const { songId, title, album, artist, genre } = req.body;
