@@ -20,6 +20,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
   };
   const errorMessage = useSelector(selectError);
   const song: any = useSelector(selectSong);
+  console.log("song")
   const selectedSong = song.find((song: any) => song.songId === Number(songId));
 
   console.log("selected to be updated: ", selectedSong);
