@@ -5,7 +5,7 @@ export interface submitSongType {
 export type SongComponentPageTypes = {
   isLoading: boolean;
   errorMessage: string;
-  song: songType[];
+  song: songType;
 };
 export type songType = {
   songId: string;

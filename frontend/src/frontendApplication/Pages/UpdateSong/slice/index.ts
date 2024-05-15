@@ -15,7 +15,7 @@ const slice = createSlice({
   reducers: {
     updateSongRequest: (state, action: PayloadAction<songType>) => {
       state.isLoading = true;
-      state.songToBeUpdated = action.payload;
+      state.song = action.payload;
       state.errorMessage = "";
     },
     updateSongSuccess: (state) => {

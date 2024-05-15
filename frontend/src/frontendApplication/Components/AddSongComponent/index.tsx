@@ -6,16 +6,15 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { selectError, selectSong } from "../../Pages/AddSong/slice/selector";
+import { selectError } from "../../Pages/AddSong/slice/selector";
 
 export const AudioUploader = (props: AddSongTypeProps) => {
-  const song = useSelector(selectSong);
   const navigate = useNavigate();
   const errorMessage = useSelector(selectError);
   const [fileValue, setFileValue] = useState<File | null>(null);
 
   const initialValues = {
-    songId: String(song.length + 1),
+    songId: "",
     album: "",
     artist: "",
     genre: "",

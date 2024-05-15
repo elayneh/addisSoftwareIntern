@@ -19,13 +19,16 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
     navigate("/songlist");
   };
   const errorMessage = useSelector(selectError);
-  const songToBeUpdated = useSelector(selectSong);
-  console.log("Song to be updated: ", songToBeUpdated);
+  const song: any = useSelector(selectSong);
+  const selectedSong = song.find((song: any) => song.songId === Number(songId));
+
+  console.log("selected to be updated: ", selectedSong);
+
   const initialValues = {
-    album: songToBeUpdated[0].album,
-    artist: songToBeUpdated[0].artist,
-    genre: songToBeUpdated[0].genre,
-    title: songToBeUpdated[0].title,
+    album: selectedSong.album,
+    artist: selectedSong.artist,
+    genre: selectedSong.genre,
+    title: selectedSong.title,
     songId: String(songId),
   };
   const validationSchema = Yup.object().shape({
@@ -54,11 +57,11 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              overflow: "hidden",
+              padding: "20px",
             }}
           >
             <div>
-              {errorMessage && <div color="red">{errorMessage}</div>}
+              {errorMessage && <div>{errorMessage}</div>}
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -67,9 +70,9 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                 {({ isSubmitting }) => (
                   <Form
                     style={{
-                      width: "50vw",
+                      width: "100vw",
                       backgroundColor: "#CCCCFF",
-                      overflow: "hidden",
+                      padding: "20px",
                     }}
                   >
                     <Flex
@@ -126,6 +129,19 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                           }}
                         />
                       </Flex>
+                      <Flex>
+                        <Field
+                          type="text"
+                          name="songId"
+                          placeholder="songId"
+                          disabled
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </Flex>
                     </Flex>
                     <div
                       style={{
@@ -136,10 +152,13 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                     >
                       <button
                         onClick={handleCloseModal}
+                        type="button"
                         style={{
                           backgroundColor: "gray",
                           marginTop: "10px",
                           width: "48%",
+                          padding: "10px",
+                          borderRadius: "4px",
                         }}
                       >
                         Cancel
@@ -150,6 +169,8 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                           backgroundColor: "green",
                           marginTop: "10px",
                           width: "48%",
+                          padding: "10px",
+                          borderRadius: "4px",
                         }}
                         disabled={isSubmitting}
                       >
