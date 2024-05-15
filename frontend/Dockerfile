@@ -8,7 +8,7 @@ RUN yarn
 
 COPY . /app/
 
-ENV PORT=3000
+ENV PORT=5173
 
 EXPOSE ${PORT}
 
