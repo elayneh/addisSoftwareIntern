@@ -10,21 +10,25 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
   return (
     <Card
       sx={{
-        top: 8,
+        position: "fixed",
+        top: 0,
+        left: 0,
         width: "100vw",
         height: "100vh",
-        backgroundColor: "",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 9999,
       }}
     >
       <div
         style={{
           backgroundColor: "white",
-          padding: "10px",
-          borderRadius: "8px",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          minWidth: "300px",
+          maxWidth: "500px",
         }}
       >
         {children}

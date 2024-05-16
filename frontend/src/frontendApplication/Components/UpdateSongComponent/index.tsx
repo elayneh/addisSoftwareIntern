@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { selectError } from "../../Pages/UpdateSong/slice/selector";
 import { selectSong } from "../../Pages/SongComponentPage/slice/selector";
 import { useSongPageSlice } from "../../Pages/SongComponentPage/slice";
+import { Card } from "@mui/material";
 
 export const UpdateSong = (props: UpdateSongTypeProps) => {
   const navigate = useNavigate();
@@ -54,22 +55,11 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
     navigate("/songlist");
   };
 
- return (
-    <div style={{ position: "relative" }}>
+  return (
+    <Flex>
       {showModal && (
         <Modal onClose={handleCloseModal}>
-          <Flex
-            style={{
-              position: "relative",
-              top: 0,
-              left: 0,
-              backgroundColor: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "20px",
-            }}
-          >
+          <Card>
             <div>
               {errorMessage && <div>{errorMessage}</div>}
               <Formik
@@ -80,9 +70,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                 {({ isSubmitting }) => (
                   <Form
                     style={{
-                      width: "100vw",
-                      backgroundColor: "#CCCCFF",
-                      padding: "20px",
+                      // width: "500px",
                     }}
                   >
                     <Flex
@@ -100,6 +88,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                             width: "100%",
                             padding: "10px",
                             borderRadius: "4px",
+                            zIndex: 9999,
                           }}
                         />
                       </Flex>
@@ -112,6 +101,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                             width: "100%",
                             padding: "10px",
                             borderRadius: "4px",
+                            zIndex: 9999,
                           }}
                         />
                       </Flex>
@@ -124,6 +114,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                             width: "100%",
                             padding: "10px",
                             borderRadius: "4px",
+                            zIndex: 9999,
                           }}
                         />
                       </Flex>
@@ -136,6 +127,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                             width: "100%",
                             padding: "10px",
                             borderRadius: "4px",
+                            zIndex: 9999,
                           }}
                         />
                       </Flex>
@@ -145,6 +137,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                         display: "flex",
                         justifyContent: "space-between",
                         width: "100%",
+                        zIndex: 9999,
                       }}
                     >
                       <button
@@ -156,6 +149,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                           width: "48%",
                           padding: "10px",
                           borderRadius: "4px",
+                          zIndex: 9999,
                         }}
                       >
                         Cancel
@@ -168,6 +162,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                           width: "48%",
                           padding: "10px",
                           borderRadius: "4px",
+                          zIndex: 9999,
                         }}
                         disabled={isSubmitting}
                       >
@@ -178,9 +173,9 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                 )}
               </Formik>
             </div>
-          </Flex>
+          </Card>
         </Modal>
       )}
-    </div>
+    </Flex>
   );
 };
