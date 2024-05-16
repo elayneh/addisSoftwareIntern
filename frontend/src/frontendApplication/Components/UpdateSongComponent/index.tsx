@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../../utils/util/modal";
 import { Flex } from "../../basicStyles/Flex";
-import { submitTypes, UpdateSongTypeProps } from "./types";
-import { useSelector } from "react-redux";
+import { UpdateSongTypeProps } from "./types";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
-import { selectError, selectSong } from "../../Pages/UpdateSong/slice/selector";
+import { selectError } from "../../Pages/UpdateSong/slice/selector";
+import { selectSong } from "../../Pages/SongComponentPage/slice/selector";
+import { useSongPageSlice } from "../../Pages/SongComponentPage/slice";
 
 export const UpdateSong = (props: UpdateSongTypeProps) => {
   const navigate = useNavigate();
@@ -18,17 +21,24 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
     setShowModal(!showModal);
     navigate("/songlist");
   };
-  const errorMessage = useSelector(selectError);
-  const song: any = useSelector(selectSong);
-  const selectedSong = song.find((song: any) => song.songId === Number(songId));
+  const dispatch = useDispatch();
+  const { actions } = useSongPageSlice();
 
-  console.log("selected to be updated: ", selectedSong);
+  useEffect(() => {
+    dispatch(actions.getSong());
+  }, []);
+  const errorMessage = useSelector(selectError);
+  const songToBeUpdated = useSelector(selectSong);
+  const selectedSong = songToBeUpdated.find(
+    (song) => String(song.songId) === String(songId)
+  );
+  console.log("Song: ", selectedSong);
 
   const initialValues = {
-    album: selectedSong.album,
-    artist: selectedSong.artist,
-    genre: selectedSong.genre,
-    title: selectedSong.title,
+    album: selectedSong && selectedSong.album,
+    artist: selectedSong && selectedSong.artist,
+    genre: selectedSong && selectedSong.genre,
+    title: selectedSong && selectedSong.title,
     songId: String(songId),
   };
   const validationSchema = Yup.object().shape({
@@ -38,7 +48,7 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
     genre: Yup.string().required("Genre is required"),
   });
 
-  const handleSubmit = (values: submitTypes, { setSubmitting }: any) => {
+  const handleSubmit = (values: any, { setSubmitting }: any) => {
     props.handleSubmit(values);
     setSubmitting(false);
     navigate("/songlist");
@@ -122,19 +132,6 @@ export const UpdateSong = (props: UpdateSongTypeProps) => {
                           type="text"
                           name="genre"
                           placeholder="Genre"
-                          style={{
-                            width: "100%",
-                            padding: "10px",
-                            borderRadius: "4px",
-                          }}
-                        />
-                      </Flex>
-                      <Flex>
-                        <Field
-                          type="text"
-                          name="songId"
-                          placeholder="songId"
-                          disabled
                           style={{
                             width: "100%",
                             padding: "10px",

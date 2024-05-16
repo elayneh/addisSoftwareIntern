@@ -6,17 +6,17 @@ import {
   useInjectSaga,
 } from "../../../../redux/utils/redux-injectors";
 import { initialState } from "../constants";
+import { songToBeUpdatedType } from "./types";
 import { updateSongSaga } from "./saga";
-import { songType } from "./types";
 
 const slice = createSlice({
-  name: "updateSongPageSliceName",
+  name: "songToBeUpdatedPageSliceName",
   initialState,
   reducers: {
-    updateSongRequest: (state, action: PayloadAction<songType>) => {
+    updateSongRequest: (state, action: PayloadAction<songToBeUpdatedType>) => {
       state.isLoading = true;
-      state.song = action.payload;
       state.errorMessage = "";
+      state.songToBeUpdated.push(action.payload);
     },
     updateSongSuccess: (state) => {
       state.isLoading = false;

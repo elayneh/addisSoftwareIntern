@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Flex } from "../../basicStyles/Flex";
 import { Card, Typography, CircularProgress } from "@mui/material";
@@ -15,7 +16,7 @@ export const SongComponent = (props: SongComponentProps) => {
     if (props.song) {
       setLoading(false);
     }
-  }, [props.song]);
+  }, []);
 
   const handleAddButtonClick = () => {
     navigate("/create");

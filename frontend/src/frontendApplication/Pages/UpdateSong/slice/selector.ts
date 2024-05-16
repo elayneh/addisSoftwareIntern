@@ -1,9 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../../redux/RootState";
 import { initialState } from "../constants";
+import { RootState } from "../../../../redux/RootState";
 
 const selectSlice = (state: RootState) =>
-  state?.songPageSliceName || initialState;
+  state?.songToBeUpdatedPageSliceName || initialState;
 
 export const selectError = createSelector(
   [selectSlice],
@@ -14,9 +14,7 @@ export const selectIsLoading = createSelector(
   (state) => state.isLoading
 );
 
-export const selectSong = createSelector([selectSlice], (state) => state.song);
-
-export const selectIsFailed = createSelector(
+export const selectSongToBeUpdated = createSelector(
   [selectSlice],
-  (state) => state.errorMessage
+  (state) => state.songToBeUpdated
 );

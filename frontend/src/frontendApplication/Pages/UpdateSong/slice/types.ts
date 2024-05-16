@@ -2,15 +2,15 @@ export interface submitSongType {
   file: File;
 }
 
-// export type UpdateSongComponentPageTypes = {
-//   isLoading: boolean;
-//   errorMessage: string;
-//   songToBeUpdated: songType;
-// };
-export type songType = {
-  album: string;
-  artist: string;
-  genre: string;
-  title: string;
+export type UpdatedSongComponentPageTypes = {
+  isLoading: boolean;
+  errorMessage: string;
+  songToBeUpdated: songToBeUpdatedType[];
+};
+export type songToBeUpdatedType = {
   songId: string;
+  title: string;
+  album: string;
+  genre: string;
+  artist: string;
 };

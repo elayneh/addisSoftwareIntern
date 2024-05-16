@@ -2,12 +2,12 @@
 import { useDispatch } from "react-redux";
 import { useUpdateSongPageActions } from "./slice";
 import { UpdateSong } from "../../Components/UpdateSongComponent";
-import { updateSongType } from "./types";
+import { songToBeUpdatedType } from "./types";
 
 export const UpdateSongPage = () => {
   const dispatch = useDispatch();
   const { actions } = useUpdateSongPageActions();
-  const handleSubmit = (values: updateSongType) => {
+  const handleSubmit = (values: songToBeUpdatedType) => {
     dispatch(actions.updateSongRequest(values));
   };
 

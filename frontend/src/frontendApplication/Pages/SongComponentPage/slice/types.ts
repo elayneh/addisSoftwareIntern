@@ -16,18 +16,15 @@ export type songType = {
   file: File | null;
 };
 
-
 interface Song {
-  _id: string; // Assuming _id is a unique identifier for each song
+  _id: string;
   songId: number;
   title: string;
   artist: string;
   album: string;
-  // Add more properties if needed
 }
 
 export interface ApiResponse {
   message: string;
   songs: Song[];
-
 }

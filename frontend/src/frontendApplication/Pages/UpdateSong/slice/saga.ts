@@ -4,9 +4,9 @@ import { apiRoute } from "../../../../utils/routes/constants";
 import { AxiosError } from "axios";
 import { updateSongActions as actions } from ".";
 import { put, takeLatest } from "redux-saga/effects";
-import { songType } from "./types";
+import { songToBeUpdatedType } from "../types";
 
-function* handleUpdateSong(action: PayloadAction<songType>) {
+function* handleUpdateSong(action: PayloadAction<songToBeUpdatedType>) {
   try {
     yield makeCall({
       route: `${apiRoute.api}${apiRoute.updateSong}`,

@@ -1,16 +1,12 @@
-export interface submitSongType {
-  file: File;
-}
-
-export type UpdateSongComponentPageTypes = {
+export type SongToBeUpdatedComponentPageTypes = {
   isLoading: boolean;
   errorMessage: string;
-  songToBeUpdated: updateSongType;
+  songToBeUpdated: songToBeUpdatedType[];
 };
-export type updateSongType = {
+export type songToBeUpdatedType = {
   songId: string;
-  album: string;
-  artist: string;
-  genre: string;
   title: string;
+  album: string;
+  genre: string;
+  artist: string;
 };

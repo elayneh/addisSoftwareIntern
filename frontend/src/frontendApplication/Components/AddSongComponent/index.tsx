@@ -63,7 +63,7 @@ export const AudioUploader = (props: AddSongTypeProps) => {
         overflow: "hidden",
       }}
     >
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <div color="red">{errorMessage}</div>}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -90,7 +90,7 @@ export const AudioUploader = (props: AddSongTypeProps) => {
                   placeholder="Title"
                   style={{ width: "100%", padding: "10px", fontSize: "16px" }}
                 />
-                <ErrorMessage name="title" component="div" />
+                <ErrorMessage name="title" component="div"/>
               </div>
               <div style={{ marginBottom: "20px" }}>
                 <Field
